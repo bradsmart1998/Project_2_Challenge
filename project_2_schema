@@ -1,0 +1,26 @@
+drop table if exists video_game_sales;
+
+CREATE TABLE video_game_sales (
+	id INT PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	platform VARCHAR(255) NOT NULL,
+	year INTEGER,
+	publishers VARCHAR(255) NOT NULL,
+	developer VARCHAR(255) NOT NULL,
+	global_sales DEC
+);
+
+SELECT * FROM video_game_sales;
+
+drop table if exists imdb_video_games;
+
+CREATE TABLE imdb_video_games (
+	id INT PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	year INTEGER,
+	certificate VARCHAR(255) NOT NULL,
+	rating DEC,
+	votes INTEGER
+);
+
+SELECT * FROM imdb_video_games;

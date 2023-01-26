@@ -8,6 +8,7 @@
 * [Sources of Data](#data)
 * [Required Dependencies](#Rq-Dep)
 * [Data Extraction](#Data-ext)
+* [First Stage of Transformation](#Trans_1)
 
 
 ## <a id="proposal-header"></a>Project Summary
@@ -43,4 +44,33 @@ csv_file_2 = "imdb-videogames.csv"
 games_review_df = pd.read_csv(csv_file_2)
 games_review_df.head()
 ```
+
+## <a id="Trans_1"></a> First Stage of Transformation
+A data base table was created for each of the CSV files to allow for the data to be uploaded to PostgreSQL
+```ruby
+CREATE TABLE imdb_video_games (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    year INTEGER,
+    certificate VARCHAR(255),
+    rating DEC,
+    votes INTEGER
+);
+```
+The headings of the table were changed to ensure that these matched the database criteria, unwanted columns were dropped and commas were removed from the votes column to ensure that these would match the format specified by the database table. 
+```ruby
+#Remove the comma in the votes values
+votes_df = pd.DataFrame(new_games_review_df['votes'].str.replace(",",""))
+votes_df
+
+#Join the Dataframe
+new_games_review_df_2 = pd.merge(new_games_review_df, votes_df, left_index=True, right_index=True )
+
+#Remove and rename colums
+new_games_review_df_2.drop('votes_x', axis=1, inplace=True)
+
+new_games_review_df_3 = new_games_review_df_2.rename(columns={'name': 'name', 'year' : 'year', 'certificate' :'certificate', 'rating': 'rating', 'votes_y' : 'votes'})
+new_games_review_df_3.head()
+```
+
 

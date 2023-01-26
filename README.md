@@ -13,6 +13,7 @@
 * [The Second Stage of Transformation](#trans-2)
 * [Additional Data Extraction from the API](#api-data)
 * [Final Transformation Stage](#final-clean)
+* [Final Load and Sample Queries](#final-load)
 
 
 ## <a id="proposal-header"></a>Project Summary
@@ -76,6 +77,12 @@ new_games_review_df_2.drop('votes_x', axis=1, inplace=True)
 new_games_review_df_3 = new_games_review_df_2.rename(columns={'name': 'name', 'year' : 'year', 'certificate' :'certificate', 'rating': 'rating', 'votes_y' : 'votes'})
 new_games_review_df_3.head()
 ```
+The null values were identified and replaced with 0 or space as per the column attribute.
+![Clean1](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/Screenshots/clean1.png)
+
+The following code was used to clean special charters in numeric values and convert to integer format.
+![Clean2](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/Screenshots/clean2.png)
+
 
 ## <a id="loading-1"></a> Loading and SQL Join
 The two sets of data from Kaggle were then loaded into the SQL Database. 
@@ -159,6 +166,16 @@ games_final_2['metacritic_rating'] = games_final_2['metacritic_rating'].fillna("
 games_final_2['certificate'] = games_final_2['certificate'].fillna("No Cert Req")
 games_final_2.head()
 ```
+##<a id="final-load"></a>Final Load and Sample Queries 
+The final DataFrame was then loaded into the DataFrame 
 
+```ruby
+#Upload the Data to the Data base
+games_final_2.to_sql(name='final_game_data', con=engine, if_exists='append', index=False)
+
+```
+Some sample queries were then performed to ensure that the Database was loaded correctly. 
+
+![sample](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/Screenshots/Example_query_screenshot.png) 
 
 

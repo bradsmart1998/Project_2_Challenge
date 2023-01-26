@@ -5,6 +5,7 @@
 ## Contents
 * [Project Summary](#proposal-header)
 * [Project Aims](#aims)
+* [Sources of Data](#data)
 
 
 ## <a id="proposal-header"></a>Project Summary
@@ -18,4 +19,7 @@ The aim was to create a detailed data set which would be able to provide informa
 ![completed_table](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/Screenshots/Example_of_completed_table.png)
 
 The full file can be found here 
-*[Final_Data_csv](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/data/Final_gamed_data_fromPostgreSQL.csv)
+[Final Games Database](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/data/Final_gamed_data_fromPostgreSQL.csv)
+
+## <a id="data"></a>Sources of Data
+The inital data was collected from [Kaggle.com](https://www.kaggle.com/datasets) and further data was collected from

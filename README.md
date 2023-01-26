@@ -6,12 +6,12 @@
 * [Project Summary](#proposal-header)
 * [Project Aims](#aims)
 * [Sources of Data](#data)
-* [Required Dependencies](#Rq-Dep)
-* [Data Extraction](#Data-ext)
-* [First Stage of Transformation](#Trans-1)
-* [Loading and SQL Join](#Loading-1)
-* [The Second Stage of Transformation](#Trans-2)
-* [Additional Data Extraction from the API](#API-data)
+* [Required Dependencies](#rq-dep)
+* [Data Extraction](#data-ext)
+* [First Stage of Transformation](#trans-1)
+* [Loading and SQL Join](#loading-1)
+* [The Second Stage of Transformation](#trans-2)
+* [Additional Data Extraction from the API](#api-data)
 
 
 ## <a id="proposal-header"></a>Project Summary
@@ -31,7 +31,7 @@ The full file can be found here
 The inital data was collected from [Kaggle.com](https://www.kaggle.com/datasets) and further data was collected from [RAWG.io](https://rawg.io/) 
 All the data can be found in the [Data](https://github.com/bradsmart1998/Project_2_Challenge/tree/main/data) folder contained in the repository.
 
-## <a id="Rq-Dep"></a> Required Dependencies
+## <a id="rq-dep"></a> Required Dependencies
 The following dependencies are required to complete the ETL process 
 *  SQLAlchemy
 * Pandas
@@ -39,7 +39,7 @@ The following dependencies are required to complete the ETL process
 *  JSON
 *  NumPy
 
-## <a id="Data-ext"></a> Data Extraction
+## <a id="data-ext"></a> Data Extraction
 Both files from Kaggle.com are CSV files. Both files were converted into DataFrames 
 ```ruby 
 # Data Source 2 - Videogames Review from https://www.kaggle.com/datasets/muhammadadiltalay/imdb-video-games
@@ -48,7 +48,7 @@ games_review_df = pd.read_csv(csv_file_2)
 games_review_df.head()
 ```
 
-## <a id="Trans-1"></a> First Stage of Transformation
+## <a id="trans-1"></a> First Stage of Transformation
 A data base table was created for each of the CSV files to allow for the data to be uploaded to PostgreSQL
 ```ruby
 CREATE TABLE imdb_video_games (
@@ -76,7 +76,7 @@ new_games_review_df_3 = new_games_review_df_2.rename(columns={'name': 'name', 'y
 new_games_review_df_3.head()
 ```
 
-## <a id="Loading-1"></a> Loading and SQL Join
+## <a id="loading-1"></a> Loading and SQL Join
 The two sets of data from Kaggle were then loaded into the SQL Database. 
 ```Ruby
 #Dataframe 1
@@ -92,7 +92,7 @@ SELECT imdb_video_games.name, imdb_video_games.year, imdb_video_games.certificat
 FROM imdb_video_games
 LEFT JOIN video_game_sales ON video_game_sales.name=imdb_video_games.name;
 ```
-## <a id="Trans-2"></a> The Second Stage of Transformation
+## <a id="trans-2"></a> The Second Stage of Transformation
 The data from the joined table was then loaded into a Jupiter Notebook 
 ```ruby
 %load_ext sql
@@ -124,7 +124,7 @@ unique_games_df.head()
 ```
 
 
-## <a id="API-data"></a>Additional Data Extraction from the API
+## <a id="api-data"></a>Additional Data Extraction from the API
 On closer inspection of the data set we found that we still wanted to add in a genre column and a more accurate release date as the original data set only contained the year. We removed the more inaccurate columns from the Dataframe we had created.
 
 To get more data on video games, We used the [RAWG API](https://rawg.io/apidocs). This API has information on over 500,000 games from over 50 different platforms.  To begin to obtain this data, this imported the API key from a hidden config file. 

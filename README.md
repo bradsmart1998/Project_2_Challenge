@@ -166,7 +166,7 @@ games_final_2['metacritic_rating'] = games_final_2['metacritic_rating'].fillna("
 games_final_2['certificate'] = games_final_2['certificate'].fillna("No Cert Req")
 games_final_2.head()
 ```
-##<a id="final-load"></a>Final Load and Sample Queries 
+## <a id="final-load"></a>Final Load and Sample Queries 
 The final DataFrame was then loaded into the DataFrame 
 
 ```ruby

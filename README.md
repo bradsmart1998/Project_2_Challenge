@@ -6,6 +6,8 @@
 * [Project Summary](#proposal-header)
 * [Project Aims](#aims)
 * [Sources of Data](#data)
+* [Required Dependencies](#Rq-Dep)
+* [Data Extraction](#Data-ext)
 
 
 ## <a id="proposal-header"></a>Project Summary

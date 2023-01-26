@@ -91,7 +91,42 @@ SELECT imdb_video_games.name, imdb_video_games.year, imdb_video_games.certificat
 FROM imdb_video_games
 LEFT JOIN video_game_sales ON video_game_sales.name=imdb_video_games.name;
 ```
-## <a id="API_data"></a>Additional Data Extraction from the API
-On closer inspection of the data set we found that we still wanted to add in a genre column and a more accurate release date as the original data set only contained the year. 
+## <a id="Trans_2"></a> The Second Stage of Transformation
+The data from the joined table was then loaded into a Jupiter Notebook 
+```ruby
+%load_ext sql
+%sql $engine.url
+data = %sql SELECT * FROM joined_games
 
+# Make a data frame using the table from Postgres
+games_df = pd.DataFrame(data)
+
+```
+The rows with no values for global sales were removed and these figures were converted in to float figures to ensure they were able to be used for calculations. Duplicate values were removed. 
+```ruby
+# Remove any rows which don't have a value for global sales 
+games_df_values = games_df[games_df['global_sales'] > 0]
+
+# Convert the Decimal figures from the database to float figures so these can be used in calculations
+num_list = games_df_values['global_sales'].apply(pd.to_numeric, downcast='float')
+
+#Convert the numerical figures into a dataframe
+global_2 = pd.DataFrame(num_list)
+
+# Merge the numerical figures into the data frame
+merged_games_df = pd.merge(games_df_values, global_2, left_index=True, right_index=True)
+merged_games_df.head()
+
+unique_games_df = merged_games_df.drop_duplicates(subset=['name'], keep = 'first')
+unique_games_df.head()
+
+```
+
+
+## <a id="API_data"></a>Additional Data Extraction from the API
+On closer inspection of the data set we found that we still wanted to add in a genre column and a more accurate release date as the original data set only contained the year. We removed the more inaccurate columns from the Dataframe we had created 
+
+To get more data on video games, We used the [RAWG API](https://rawg.io/apidocs). This API has information on over 500,000 games from over 50 different platforms.  To begin to obtain this data, this imported the API key from a hidden config file. 
+
+The next step to extract data from this API was to build our query. I started with getting the base URL and then I identified the params needed to create the query URL. The issue that we had with extracting the data from this API, was that there were only 20 results on each page. Therefore, to get enough data, we needed to iterate through the pages(starting at page 1).
 

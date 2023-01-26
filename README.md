@@ -22,5 +22,5 @@ The full file can be found here
 [Final Games Database](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/data/Final_gamed_data_fromPostgreSQL.csv)
 
 ## <a id="data"></a>Sources of Data
-The inital data was collected from [Kaggle.com](https://www.kaggle.com/datasets) and further data was collected from **ADD IN BRAD API WEBSITE**. 
+The inital data was collected from [Kaggle.com](https://www.kaggle.com/datasets) and further data was collected from [RAWG.io](https://rawg.io/) 
 All the data can be found in the [Data](https://github.com/bradsmart1998/Project_2_Challenge/tree/main/data) folder contained in the repository. 

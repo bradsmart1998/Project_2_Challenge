@@ -78,9 +78,11 @@ new_games_review_df_3 = new_games_review_df_2.rename(columns={'name': 'name', 'y
 new_games_review_df_3.head()
 ```
 The null values were identified and replaced with 0 or space as per the column attribute.
+
 ![Clean1](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/Screenshots/clean1.png)
 
 The following code was used to clean special charters in numeric values and convert to integer format.
+
 ![Clean2](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/Screenshots/clean2.png)
 
 

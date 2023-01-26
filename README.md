@@ -12,6 +12,7 @@
 * [Loading and SQL Join](#loading-1)
 * [The Second Stage of Transformation](#trans-2)
 * [Additional Data Extraction from the API](#api-data)
+* [Final Transformation Stage](#final-clean)
 
 
 ## <a id="proposal-header"></a>Project Summary
@@ -123,7 +124,6 @@ unique_games_df.head()
 
 ```
 
-
 ## <a id="api-data"></a>Additional Data Extraction from the API
 On closer inspection of the data set we found that we still wanted to add in a genre column and a more accurate release date as the original data set only contained the year. We removed the more inaccurate columns from the Dataframe we had created.
 
@@ -144,4 +144,21 @@ We then created the code to extract the data from the API. This started with cre
 We then put these lists into a data frame and exported it to a CSV file. From there we could load this data into our table.
 
 ![API4](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/Screenshots/API4.png)
+
+## <a id="final-clean"></a>Final Transformation Stage
+The data from the API was Merged into the DataFrame and a the NaN values were replaced. A new table was created in the DataBase to house the finalised data and the DataFrame headings were changed to ensure these were in the correct format. 
+
+```ruby
+# Merge the inital table and API table
+final_game_merge_df = pd.merge(tidy_unique_games_df, game_api, on = 'name')
+final_game_merge_df.head()
+
+# Rename the columns to match the table in the Database and remove NaN values
+games_final_2 = games_final_1.rename(columns = {'name' : 'name', 'certificate' : 'certificate', 'platform' : 'platform', 'publishers' : 'publishers', 'global_sales_y': 'global_sales_millions', 'Metacritic Rating' : 'metacritic_rating', 'Release Date' : 'release_date', 'Genre': 'genre'})
+games_final_2['metacritic_rating'] = games_final_2['metacritic_rating'].fillna("None Provided")
+games_final_2['certificate'] = games_final_2['certificate'].fillna("No Cert Req")
+games_final_2.head()
+```
+
+
 

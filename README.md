@@ -9,6 +9,8 @@
 * [Required Dependencies](#Rq-Dep)
 * [Data Extraction](#Data-ext)
 * [First Stage of Transformation](#Trans_1)
+* [Loading and SQL Join](#Loading_1)
+* [Additional Data Extraction from the API](#API_data)
 
 
 ## <a id="proposal-header"></a>Project Summary
@@ -72,5 +74,24 @@ new_games_review_df_2.drop('votes_x', axis=1, inplace=True)
 new_games_review_df_3 = new_games_review_df_2.rename(columns={'name': 'name', 'year' : 'year', 'certificate' :'certificate', 'rating': 'rating', 'votes_y' : 'votes'})
 new_games_review_df_3.head()
 ```
+
+## <a id="Loading_1"></a> Loading and SQL Join
+The two sets of data from Kaggle were then loaded into the SQL Database. 
+```Ruby
+#Dataframe 1
+new_games_sales_df_2.to_sql(name='video_game_sales', con=engine, if_exists='append', index=False)
+#Dataframe 2
+new_games_review_df_3.to_sql(name='imdb_video_games', con=engine, if_exists='append', index=False)
+```
+The desired columns were then joined in SQL to create a joined table on the name column. 
+```ruby
+CREATE TABLE joined_games AS
+SELECT imdb_video_games.name, imdb_video_games.year, imdb_video_games.certificate, imdb_video_games.rating, imdb_video_games.votes, video_game_sales.platform, video_game_sales.publishers, video_game_sales.developer, video_game_sales.global_sales
+
+FROM imdb_video_games
+LEFT JOIN video_game_sales ON video_game_sales.name=imdb_video_games.name;
+```
+## <a id="API_data"></a>Additional Data Extraction from the API
+On closer inspection of the data set we found that we still wanted to add in a genre column and a more accurate release date as the original data set only contained the year. 
 
 

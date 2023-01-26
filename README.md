@@ -130,3 +130,17 @@ To get more data on video games, We used the [RAWG API](https://rawg.io/apidocs)
 
 The next step to extract data from this API was to build our query. I started with getting the base URL and then I identified the params needed to create the query URL. The issue that we had with extracting the data from this API, was that there were only 20 results on each page. Therefore, to get enough data, we needed to iterate through the pages(starting at page 1).
 
+![API1](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/Screenshots/Ap1.png)
+
+We then ran the query URL on google to make sure that it worked, and then identified the data that we wanted to extract. We wanted to obtain the Metacritic rating, the release date, and the game genre from this API. We also extracted the video game name so that it could join to our other datasets, and we could identify what game the data referred to. To do this we created an empty lists to store the data.
+
+![API2](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/Screenshots/API2.png)
+
+We then created the code to extract the data from the API. This started with creating a loop to travel through each page. For each page, we ran the query URL to get a response and then converted the response to a JSON. From there we looped through each game, identified the appropriate information in the JSON and appended it to the appropriate list.  To get the genre information, we extracted the first genre for each game as some games had sub-genres. 
+
+![API3](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/Screenshots/API3.png)
+
+We then put these lists into a data frame and exported it to a CSV file. From there we could load this data into our table.
+
+![API4](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/Screenshots/API4.png)
+

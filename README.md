@@ -3,7 +3,7 @@
 ![Video_game_image](https://github.com/bradsmart1998/Project_2_Challenge/blob/main/Screenshots/video_dino.jpg)
 
 ## Contents
-* Project Proposal (#proposal-header)
+* [Project Proposal].(#proposal-header)
 
 
 ## <a id="proposal-header"></a>Project Proposal

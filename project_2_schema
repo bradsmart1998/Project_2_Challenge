@@ -1,26 +1,94 @@
 drop table if exists video_game_sales;
 
 CREATE TABLE video_game_sales (
-	id INT PRIMARY KEY,
-	name VARCHAR(255) NOT NULL,
-	platform VARCHAR(255) NOT NULL,
-	year INTEGER,
-	publishers VARCHAR(255) NOT NULL,
-	developer VARCHAR(255) NOT NULL,
-	global_sales DEC
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    platform VARCHAR(255),
+    year INTEGER,
+    publishers VARCHAR(255),
+    developer VARCHAR(255),
+    global_sales DEC
 );
-
 SELECT * FROM video_game_sales;
 
 drop table if exists imdb_video_games;
-
 CREATE TABLE imdb_video_games (
-	id INT PRIMARY KEY,
-	name VARCHAR(255) NOT NULL,
-	year INTEGER,
-	certificate VARCHAR(255) NOT NULL,
-	rating DEC,
-	votes INTEGER
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    year INTEGER,
+    certificate VARCHAR(255),
+    rating DEC,
+    votes INTEGER
+);
+SELECT * FROM imdb_video_games;
+
+CREATE TABLE joined_games AS
+SELECT imdb_video_games.name, imdb_video_games.year, imdb_video_games.certificate, imdb_video_games.rating, imdb_video_games.votes,
+	 video_game_sales.platform, video_game_sales.publishers, video_game_sales.developer, video_game_sales.global_sales
+FROM imdb_video_games
+LEFT JOIN video_game_sales ON video_game_sales.name=imdb_video_games.name;
+
+
+drop table if exists final_game_data;
+
+CREATE TABLE final_game_data (
+	id SERIAL PRIMARY KEY,
+	Name VARCHAR(255),
+	certificate VARCHAR(255),
+	Platform VARCHAR(255),
+	Publishers VARCHAR(255),
+	Global_Sales_Millions FLOAT,
+	Metacritic_Rating VARCHAR(255),
+	Release_Date DATE,
+	Genre VARCHAR(255)	
 );
 
-SELECT * FROM imdb_video_games;
+SELECT * FROM final_game_data
+
+
+SELECT * FROM final_game_data
+
+SELECT 
+	name,
+	platform,
+	global_sales_millions
+FROM 
+	final_game_data
+WHERE
+	platform = 'Wii'
+ORDER BY
+	global_sales_millions
+;
+
+SELECT
+	name,
+	platform,
+	publishers
+FROM
+	final_game_data
+WHERE
+	release_date BETWEEN '1986-01-01' and '1986-12-31'
+;
+
+SELECT
+	name,
+	platform,
+	metacritic_rating
+	genre
+FROM
+	final_game_data
+WHERE
+	genre = 'Action'
+AND
+	release_date BETWEEN '2013-01-01' and '2013-12-31'
+;
+
+SELECT 
+	name,
+	platform
+	genre
+FROM
+	final_game_data
+WHERE
+	name LIKE 'Super%'
+;

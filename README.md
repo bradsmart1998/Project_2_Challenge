@@ -23,4 +23,22 @@ The full file can be found here
 
 ## <a id="data"></a>Sources of Data
 The inital data was collected from [Kaggle.com](https://www.kaggle.com/datasets) and further data was collected from [RAWG.io](https://rawg.io/) 
-All the data can be found in the [Data](https://github.com/bradsmart1998/Project_2_Challenge/tree/main/data) folder contained in the repository. 
+All the data can be found in the [Data](https://github.com/bradsmart1998/Project_2_Challenge/tree/main/data) folder contained in the repository.
+
+## <a id="Rq-Dep"></a> Required Dependencies
+The following dependencies are required to complete the ETL process 
+*  SQLAlchemy
+* Pandas
+* Requests
+*  JSON
+*  NumPy
+
+## <a id="Data-ext"></a> Data Extraction
+Both files from Kaggle.com are CSV files. Both files were converted into DataFrames 
+```ruby 
+# Data Source 2 - Videogames Review from https://www.kaggle.com/datasets/muhammadadiltalay/imdb-video-games
+csv_file_2 = "imdb-videogames.csv"
+games_review_df = pd.read_csv(csv_file_2)
+games_review_df.head()
+```
+
